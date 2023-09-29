@@ -3,7 +3,7 @@ const express = require('express');
 const apiRouter = express.Router();
 
 const jwt = require('jsonwebtoken');
-const { getUserById } = require('../db');
+const { getUserById } = require('../db').default;
 const { JWT_SECRET } = process.env;
 
 // set `req.user` if possible
@@ -58,7 +58,12 @@ const tagsRouter = require('./tags');
 apiRouter.use('/tags', tagsRouter);
 
 apiRouter.use((error, req, res, next) => {
-  res.send(error);
+  res.send({
+    name: error.name,
+    message: error.message
+  });
 });
 
+
 module.exports = apiRouter;
+
