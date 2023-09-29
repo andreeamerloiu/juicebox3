@@ -1,4 +1,4 @@
-const { Client } = require('pg') // imports the pg module
+import { Client } from 'pg'; // imports the pg module
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL || 'postgres://localhost:5432/juicebox-dev',
@@ -75,12 +75,12 @@ async function getUserById(userId) {
       WHERE id=${ userId }
     `);
 
-    if (!user) {
-      throw {
-        name: "UserNotFoundError",
-        message: "A user with that id does not exist"
-      }
-    }
+    //if (!user) {
+     // throw {
+       // name: "UserNotFoundError",
+       // message: "A user with that id does not exist"
+     // }
+   // }
 
     user.posts = await getPostsByUser(userId);
 
@@ -354,7 +354,8 @@ async function getAllTags() {
   }
 }
 
-module.exports = {  
+
+export default {  
   client,
   createUser,
   updateUser,
